@@ -43,6 +43,7 @@
     "@zthun/markdownlint-config": "^10.1.0",
     "@zthun/prettier-config": "^10.1.0",
     "@zthun/stylelint-config": "^10.1.0",
+    "@zthun/works.nest": "^1.0.0",
     "@zthun/works.jest": "^1.0.0",
     "husky": "^7.0.1",
     "lerna": "^4.0.0",

@@ -24,9 +24,7 @@
     "start": "node ./dist/main.js"
   },
   "dependencies": {
-    "@zthun/works.nest": "^1.0.0",
-    "rxjs": "^7.3.0",
-    "uuid": "^8.3.2"
+    "@zthun/works.nest": "^1.0.0"
   },
   "files": [
     "dist/**",
