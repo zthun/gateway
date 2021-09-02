@@ -11,7 +11,8 @@
   },
   "workspaces": [
     "packages/gateway.api",
-    "packages/gateway.proxy"
+    "packages/gateway.proxy",
+    "packages/gateway.web"
   ],
   "scripts": {
     "clean": "rimraf dist docs reports *.tgz *.log packages/**/dist packages/**/docs packages/**/*.tgz packages/**/*.log",
@@ -49,16 +50,25 @@
     "@zthun/works.jest": "^1.0.0",
     "@zthun/works.nest": "^1.0.0",
     "@zthun/works.react": "^1.1.0",
+    "css-loader": "^6.2.0",
+    "favicons-webpack-plugin": "^5.0.2",
+    "html-webpack-plugin": "^5.3.2",
     "husky": "^7.0.1",
     "lerna": "^4.0.0",
+    "less-loader": "^10.0.1",
     "nodemon": "^2.0.1",
     "rimraf": "^3.0.0",
     "rxjs": "^7.3.0",
+    "style-loader": "^3.2.1",
     "ts-jest": "^27.0.0",
+    "ts-loader": "^9.2.5",
     "ts-node": "^10.0.0",
     "tsconfig-paths": "^3.9.0",
     "tsconfig-paths-webpack-plugin": "^3.5.1",
     "typescript": "^4.4.2",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "webpack": "^5.51.2",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.1.0"
   }
 }

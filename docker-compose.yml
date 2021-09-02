@@ -9,9 +9,16 @@ services:
       - 8080:8080
     depends_on:
       - gateway-services-api
+      - gateway-services-web
     volumes:
       - ./packages/gateway.proxy/conf.d:/etc/nginx/conf.d
   # Node Ports
+  gateway-services-web:
+    image: node:16.6.0
+    volumes:
+      - .:/usr/dev
+    working_dir: /usr/dev
+    command: npm --workspace @zthun/gateway.web run debug
   gateway-services-api:
     image: node:16.6.0
     ports:

@@ -1,0 +1,35 @@
+{
+  "name": "@zthun/gateway.web",
+  "version": "1.1.0",
+  "description": "The web client for the gateway application.",
+  "browser": "./dist/gateway.web.min.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zthun/gateway",
+    "directory": "packages/gateway.web"
+  },
+  "scripts": {
+    "docker:publish": "docker push zthun/gateway.web && docker push zthun/gateway.web:$(node -p \"require('./package.json').version\")",
+    "docker:build": "docker build . -t zthun/gateway.web:latest -t zthun/gateway.web:$(node -p \"require('./package.json').version\")",
+    "build": "webpack --env production",
+    "debug": "webpack serve --env development"
+  },
+  "author": "Anthony Bonta",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist/**",
+    "images/**"
+  ],
+  "devDependencies": {
+    "@zthun/works.core": "^1.1.0",
+    "@zthun/works.draw": "^1.0.0",
+    "@zthun/works.react": "^1.1.0",
+    "@zthun/works.themes": "^1.1.0",
+    "@zthun/works.url": "^1.1.0"
+  },
+  "sideEffects": false,
+  "gitHead": "348545f3f6789c46d0ed41c814d5be22ec8652a2"
+}
