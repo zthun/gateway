@@ -1,9 +1,20 @@
 /* istanbul ignore file */
 import { Module } from '@nestjs/common';
-import { ZHealthModule, ZNestApplication } from '@zthun/works.nest';
+import { ZHttpService } from '@zthun/works.http';
+import { ZHealthModule, ZNestApplication, ZOptionsModule } from '@zthun/works.nest';
+import { ZServiceToken } from './core/service-token';
+import { ZProxyModule } from './proxy/proxy.module';
+import { ZRoutesModule } from './routes/routes.module';
+import { ZWebAppsModule } from './web-apps/web-apps.module';
 
 @Module({
-  imports: [ZHealthModule]
+  imports: [ZWebAppsModule, ZRoutesModule, ZOptionsModule, ZHealthModule, ZProxyModule],
+  providers: [
+    {
+      provide: ZServiceToken.HttpService,
+      useClass: ZHttpService
+    }
+  ]
 })
 /**
  * The main module.
