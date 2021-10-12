@@ -19,6 +19,7 @@ services:
       - .:/usr/dev
     working_dir: /usr/dev
     command: npm --workspace @zthun/gateway.web run debug
+
   gateway-services-api:
     image: node:16.6.0
     ports:
@@ -27,3 +28,26 @@ services:
       - .:/usr/dev
     working_dir: /usr/dev
     command: npm --workspace @zthun/gateway.api run debug
+    depends_on:
+      - gateway-databases-vault
+    environment:
+      - DATABASE_URL=mongodb://gateway-databases-vault:27017
+  # Databases
+  gateway-databases-vault:
+    image: mongo:4.2.0
+  # Database Helpers
+  gateway-databases-vault-access:
+    image: mongo-express:0.49
+    ports:
+      - 8081:8081
+    depends_on:
+      - gateway-databases-vault
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=gateway-databases-vault
+  # Mock Apps
+  roadblock-services-api:
+    image: zthun/works.api:1.4.0
+  legal-services-api:
+    image: zthun/works.api:1.4.0
+  support-services-api:
+    image: zthun/works.api:1.4.0
