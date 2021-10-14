@@ -72,7 +72,7 @@ export class ZAppsService {
     domain = await this._getDomain(domain);
     const url = new ZUrlBuilder().parse(domain).subdomain('roadblock').build();
     const github = 'https://github.com/zthun/roadblock';
-    return new ZWebAppBuilder().id(ZAppsService.IdRoadblock).name('Gateway').domain(url).source(github).build();
+    return new ZWebAppBuilder().id(ZAppsService.IdRoadblock).name('Roadblock').domain(url).source(github).build();
   }
 
   /**

@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ZHttpService } from '@zthun/works.http';
 import { ZVaultModule } from '@zthun/works.nest';
+import { ZHttpModule } from '../core/http.module';
 import { ZAppsService } from './apps.service';
 
 @Module({
-  providers: [ZAppsService, ZHttpService],
-  imports: [ZVaultModule],
+  providers: [ZAppsService],
+  imports: [ZVaultModule, ZHttpModule],
   exports: [ZAppsService]
 })
 /**
