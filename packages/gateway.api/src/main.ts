@@ -19,6 +19,6 @@ import { ZWebAppsModule } from './web-apps/web-apps.module';
 /**
  * The main module.
  */
-export class ZRoadblockMainModule {}
+export class ZGatewayMainModule {}
 
-ZNestApplication.create(ZRoadblockMainModule).then((app) => ZNestApplication.run(app));
+ZNestApplication.create(ZGatewayMainModule).then((app) => ZNestApplication.run(app));
