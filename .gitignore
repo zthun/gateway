@@ -34,6 +34,11 @@ coverage
 # Bower dependency directory (https://bower.io/)
 bower_components
 
+# Yarn
+.yarn/cache
+.yarn/unplugged
+.yarn/*.gz
+
 # node-waf configuration
 .lock-wscript
 
