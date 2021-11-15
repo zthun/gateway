@@ -43,11 +43,6 @@ function config(env) {
           options: {
             configFile: env.production ? 'tsconfig.prod.json' : 'tsconfig.dev.json'
           }
-        },
-        {
-          test: /\.less$/,
-          use: ['style-loader', 'css-loader', 'less-loader'],
-          sideEffects: true
         }
       ]
     },
