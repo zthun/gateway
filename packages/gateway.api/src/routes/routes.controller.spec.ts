@@ -1,10 +1,11 @@
 /**
  * @jest-environment node
  */
+/* eslint-disable require-jsdoc */
+import { IZRouteOption, ZRouteOptionBuilder } from '@zthun/works.core';
 import { ZHttpMethod } from '@zthun/works.http';
 import { createMocked } from '@zthun/works.jest';
 import { ZAppsService } from '../apps/apps.service';
-import { IZRouteOption, ZRouteOptionBuilder } from '../core/route-option';
 import { ZRoutesController } from './routes.controller';
 
 describe('ZRoutesController', () => {

@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
+import { IZRouteOption } from '@zthun/works.core';
 import { ZAppsService } from '../apps/apps.service';
-import { IZRouteOption } from '../core/route-option';
 
 @Controller('routes')
 /**

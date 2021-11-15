@@ -1,5 +1,5 @@
-import { Grid, Typography } from '@material-ui/core';
-import WebIcon from '@material-ui/icons/Web';
+import WebIcon from '@mui/icons-material/Web';
+import { Grid, Typography } from '@mui/material';
 import { IZWebApp } from '@zthun/works.core';
 import { useWebAppsAndWatch, ZCircularBackdrop, ZPaperCard } from '@zthun/works.react';
 import React from 'react';
@@ -17,6 +17,13 @@ export function ZGatewayWebAppsPage() {
     return <ZCircularBackdrop />;
   }
 
+  /**
+   * Renders an individual web app.
+   *
+   * @param app The web app to render.
+   *
+   * @returns The jsx that can render the web app.
+   */
   function renderWebApp(app: IZWebApp) {
     return (
       <Grid key={app._id} item={true} className={`ZGatewayWebAppsPage-app ZGatewayWebAppsPage-app-${app._id}`} xs={12} sm={6} md={4} lg={3} xl={2}>
@@ -27,6 +34,11 @@ export function ZGatewayWebAppsPage() {
     );
   }
 
+  /**
+   * Renders all web apps.
+   *
+   * @returns The jsx for all rendered web apps.
+   */
   function renderWebApps() {
     const apps = webApps || [];
     return <>{apps.map((app) => renderWebApp(app))}</>;

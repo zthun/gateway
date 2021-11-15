@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ZVaultModule } from '@zthun/works.nest';
-import { ZHttpModule } from '../core/http.module';
+import { ZHttpModule, ZVaultModule } from '@zthun/works.nest';
 import { ZAppsService } from './apps.service';
 
 @Module({

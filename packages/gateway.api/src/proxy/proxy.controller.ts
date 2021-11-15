@@ -1,9 +1,15 @@
 import { Controller, Delete, Get, Head, Options, Patch, Post, Put } from '@nestjs/common';
 
 @Controller('*')
+/**
+ * Represents a proxy controller that forwards traffic to the respective api.
+ */
 export class ZProxyController {
-  public constructor() {}
-
+  /**
+   * Forwards the request to the wanted api route.
+   *
+   * @returns The result of the forwarded request.
+   */
   @Get()
   @Put()
   @Post()

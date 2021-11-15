@@ -2,11 +2,10 @@
  * @jest-environment node
  */
 /* eslint-disable require-jsdoc */
-import { IZConfigEntry, IZWebApp, ZConfigEntryBuilder } from '@zthun/works.core';
+import { IZConfigEntry, IZRouteOption, IZWebApp, ZConfigEntryBuilder, ZRouteOptionBuilder } from '@zthun/works.core';
 import { ZHttpCodeClient, ZHttpCodeSuccess, ZHttpMethod, ZHttpResultBuilder, ZHttpServiceMock } from '@zthun/works.http';
 import { createMocked } from '@zthun/works.jest';
 import { ZCommonConfigService } from '@zthun/works.nest';
-import { IZRouteOption, ZRouteOptionBuilder } from '../core/route-option';
 import { ZAppsService } from './apps.service';
 
 describe('ZAppsService', () => {

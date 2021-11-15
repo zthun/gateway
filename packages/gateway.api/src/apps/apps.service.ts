@@ -1,10 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IZWebApp, ZWebAppBuilder } from '@zthun/works.core';
+import { IZRouteOption, IZWebApp, ZRouteOptionBuilder, ZWebAppBuilder } from '@zthun/works.core';
 import { IZHttpService, ZHttpRequestBuilder } from '@zthun/works.http';
-import { ZCommonConfigService } from '@zthun/works.nest';
+import { ZCommonConfigService, ZHttpServiceToken } from '@zthun/works.nest';
 import { ZUrlBuilder } from '@zthun/works.url';
-import { IZRouteOption, ZRouteOptionBuilder } from '../core/route-option';
-import { ZServiceToken } from '../core/service-token';
 
 @Injectable()
 /**
@@ -26,7 +24,7 @@ export class ZAppsService {
    *
    * @param _vault The service used to retrieve the domain configuration.
    */
-  public constructor(private _common: ZCommonConfigService, @Inject(ZServiceToken.HttpService) private _http: IZHttpService) {}
+  public constructor(private _common: ZCommonConfigService, @Inject(ZHttpServiceToken) private _http: IZHttpService) {}
 
   /**
    * Creates an ico file from an svg stream.
@@ -41,6 +39,13 @@ export class ZAppsService {
     return `data:image/svg+xml;base64,${base64}`;
   }
 
+  /**
+   * Gets the domain information from the config service.
+   *
+   * @param domain The current domain value.
+   *
+   * @returns The configured domain if domain is falsy, domain otherwise.
+   */
   private async _getDomain(domain?: string) {
     if (domain) {
       return domain;
@@ -111,6 +116,11 @@ export class ZAppsService {
     return Promise.all([this.createAppGateway(domain), this.createAppRoadblock(domain), this.createAppLegal(domain), this.createAppSupport(domain)]);
   }
 
+  /**
+   * Lists all of the routes for each web app api
+   *
+   * @returns The routes for every web app api.
+   */
   public async listAllWebAppRoutes(): Promise<IZRouteOption[]> {
     const apps = await this.listWebApps();
 
@@ -126,6 +136,13 @@ export class ZAppsService {
     return options;
   }
 
+  /**
+   * Creates a string route for the underlying intranet.
+   *
+   * @param app The app to retrieve the route for.
+   *
+   * @returns The url to the expected options api for the given app.
+   */
   public async createAppIntranetRoute(app: IZWebApp): Promise<string> {
     // Remember that these services are not exposed and instead are accessed through the docker intranet
     // address which will be the app id followed by -services-api and they are expected to run on port 3000.
@@ -133,6 +150,13 @@ export class ZAppsService {
     return Promise.resolve(new ZUrlBuilder().protocol('http').hostname(intranetName).port(3000).append('/api/options').build());
   }
 
+  /**
+   * Reads the routes for a given app.
+   *
+   * @param app The app to retrieve the route for.
+   *
+   * @returns The route options for the given app.
+   */
   public async readWebAppRoutes(app: IZWebApp): Promise<IZRouteOption[]> {
     try {
       const url = await this.createAppIntranetRoute(app);
