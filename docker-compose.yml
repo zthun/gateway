@@ -19,7 +19,6 @@ services:
       - .:/usr/dev
     working_dir: /usr/dev
     command: npm --workspace @zthun/gateway.web run debug
-
   gateway-services-api:
     image: node:16.6.0
     ports:
@@ -50,4 +49,6 @@ services:
   legal-services-api:
     image: zthun/works.api:1.4.0
   support-services-api:
+    image: zthun/works.api:1.4.0
+  assets-services-api:
     image: zthun/works.api:1.4.0
