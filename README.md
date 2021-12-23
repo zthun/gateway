@@ -1,3 +1,5 @@
 # Description
 
-A gateway application to the Zthunworks domain applications
+Zthunworks legal mumbo jumbo apps.
+
+This is the boring stuff, but necessary.
