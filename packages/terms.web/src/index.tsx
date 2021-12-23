@@ -7,7 +7,7 @@ import { Route } from 'react-router-dom';
 import '../TERMS.md';
 
 const markdownTerms = 'legal/TERMS.md';
-const renderTermsPage = renderMarkdownPage.bind(null, { src: markdownTerms, headerText: 'Terms', subHeaderText: 'Usage of this website', avatar: <MouseIcon fontSize='large' />, size: 'lg' });
+const renderTermsPage = renderMarkdownPage.bind(null, { src: markdownTerms, headerText: 'Terms', subHeaderText: 'Usage of this website', avatar: <MouseIcon fontSize='large' />, size: 'xl' });
 
 render(
   <ZWebAppLayout whoami='terms' home='/' profileApp='roadblock'>
