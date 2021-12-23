@@ -1,8 +1,7 @@
-const generated = ['**/CHANGELOG.md', 'packages/**/dist/**', 'packages/**/docs/**', 'node_modules/**', 'packages/**/node_modules/**'];
-const k8sTemplates = ['packages/works.k8s/templates/**'];
+const generated = ['**/CHANGELOG.md', 'packages/**/dist/**', 'packages/**/docs/**', 'node_modules/**', 'packages/**/node_modules/**', '.yarnrc.yml'];
 const partialGenerated = ['cspell.json', 'lerna.json'];
 
-const esFiles = ['*.js', '*.ts', 'packages/**/src/**/*.ts', 'packages/**/src/**/*.tsx'];
+const esFiles = ['*.js', 'packages/**/src/**/*.tsx'];
 const htmlFiles = ['packages/**/src/**/*.html'];
 const markdownFiles = ['*.md', 'packages/**/*.md'];
 const jsonFiles = ['*.json', 'packages/**/*.json'];
@@ -14,9 +13,9 @@ const esFilesExclude = generated;
 const htmlFilesExclude = generated;
 const markdownFilesExclude = generated;
 const jsonFilesExclude = generated;
-const yamlFilesExclude = generated.concat(k8sTemplates);
-const prettyFilesExclude = generated.concat(k8sTemplates).concat(partialGenerated);
-const spellingFilesExclude = generated.concat(k8sTemplates).concat(partialGenerated);
+const yamlFilesExclude = generated;
+const prettyFilesExclude = generated.concat(partialGenerated);
+const spellingFilesExclude = generated.concat(partialGenerated);
 
 module.exports = {
   esFiles,
