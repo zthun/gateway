@@ -18,6 +18,12 @@ services:
       - .:/usr/dev
     working_dir: /usr/dev
     command: npm --workspace @zthun/terms.web run debug
+  privacy-services-web:
+    image: node:16.6.0
+    volumes:
+      - .:/usr/dev
+    working_dir: /usr/dev
+    command: npm --workspace @zthun/privacy.web run debug
   shared-services-api:
     image: zthun/works.server:3.0.0
     depends_on:
