@@ -1,54 +1,62 @@
-version: '3.7'
 services:
   # Load Balancer (Entry Point)
-  gateway.local.zthunworks.com:
+  legal.local.zthunworks.com:
     image: zthun/works.proxy:1.0.0
     ports:
       - 80:80
       - 443:443
       - 8080:8080
     depends_on:
-      - gateway-services-api
-      - gateway-services-web
+      - shared-services-api
+      - terms-services-web
     volumes:
-      - ./packages/gateway.proxy/conf.d:/etc/nginx/conf.d
+      - ./packages/legal.proxy/conf.d:/etc/nginx/conf.d
   # Node Ports
-  gateway-services-web:
+  terms-services-web:
     image: node:16.6.0
     volumes:
       - .:/usr/dev
     working_dir: /usr/dev
-    command: npm --workspace @zthun/gateway.web run debug
-  gateway-services-api:
-    image: node:16.6.0
-    ports:
-      - 9229:9229
-    volumes:
-      - .:/usr/dev
-    working_dir: /usr/dev
-    command: npm --workspace @zthun/gateway.api run debug
+    command: npm --workspace @zthun/terms.web run debug
+  shared-services-api:
+    image: zthun/works.server:3.0.0
     depends_on:
-      - gateway-databases-vault
+      - zthunworks-services-users
+      - zthunworks-services-vault
+      - zthunworks-services-notifications
+      - zthunworks-services-cookies
+      - zthunworks-services-apps
+  zthunworks-services-users:
+    image: zthun/works.users:3.0.1
     environment:
-      - DATABASE_URL=mongodb://gateway-databases-vault:27017
-  # Databases
-  gateway-databases-vault:
-    image: mongo:4.2.0
-  # Database Helpers
-  gateway-databases-vault-access:
-    image: mongo-express:0.49
-    ports:
-      - 8081:8081
+      - DATABASE_URL=mongodb://legal-database:27017
     depends_on:
-      - gateway-databases-vault
+      - legal-database
+  zthunworks-services-vault:
+    image: zthun/works.vault:3.0.1
     environment:
-      - ME_CONFIG_MONGODB_SERVER=gateway-databases-vault
-  # Mock Apps
+      - DATABASE_URL=mongodb://legal-database:27017
+    depends_on:
+      - legal-database
+  zthunworks-services-notifications:
+    image: zthun/works.notifications:3.0.0
+  zthunworks-services-cookies:
+    image: zthun/works.cookies:3.0.0
+  zthunworks-services-apps:
+    image: zthun/works.apps:3.0.1
+  roadblock-services-web:
+    image: zthun/roadblock.web:latest
   roadblock-services-api:
-    image: zthun/works.api:1.4.0
-  legal-services-api:
-    image: zthun/works.api:1.4.0
-  support-services-api:
-    image: zthun/works.api:1.4.0
-  assets-services-api:
-    image: zthun/works.api:1.4.0
+    image: zthun/roadblock.api:latest
+  # Databases
+  legal-database:
+    image: mongo:4.2.0
+  # Utilities
+  database.zthunworks.com:
+    image: mongo-express:0.49
+    depends_on:
+      - legal-database
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=legal-database
+  smtp.zthunworks.com:
+    image: rnwood/smtp4dev:v3.1
