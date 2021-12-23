@@ -2,7 +2,6 @@
 const path = require('path');
 const pkg = require('./package.json');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 function config(env) {
@@ -16,25 +15,16 @@ function config(env) {
       filename: file
     },
     resolve: {
-      extensions: ['.ts', '.tsx', '.js', '.jsx'],
-      plugins: [new TsconfigPathsPlugin()]
+      extensions: ['.ts', '.tsx', '.js', '.jsx']
     },
     module: {
       rules: [
         {
-          test: /\.png$/,
+          test: /TERMS.md/,
           loader: 'file-loader',
           options: {
             name: '[name].[ext]',
-            outputPath: 'images/png'
-          }
-        },
-        {
-          test: /\.svg$/,
-          loader: 'file-loader',
-          options: {
-            name: '[name].[ext]',
-            outputPath: 'images/svg'
+            outputPath: 'legal'
           }
         },
         {
