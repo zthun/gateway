@@ -4,7 +4,6 @@ workflows:
   check-build:
     jobs:
       - analyze
-      - test
       - build
 
 jobs:
