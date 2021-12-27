@@ -3959,6 +3959,7 @@ __metadata:
     "@types/uuid": ^8.3.3
     "@zthun/lint-janitor": ^11.1.0
     "@zthun/lint-janitor-config": ^11.1.1
+    "@zthun/works.http": ^3.0.0
     "@zthun/works.jest": ^3.0.0
     eslint: ^8.5.0
     eslint-plugin-react: ^7.28.0
