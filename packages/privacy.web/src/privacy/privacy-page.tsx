@@ -10,5 +10,5 @@ export const ZPrivacySource = 'legal/PRIVACY.md';
  * @returns The jsx for rendering the terms page.
  */
 export function ZPrivacyPage() {
-  return <ZMarkdownPage src={ZPrivacySource} headerText='Terms' subHeaderText='Usage agreement' avatar={<InfoIcon fontSize='large' />} size='xl' />;
+  return <ZMarkdownPage src={ZPrivacySource} headerText='Privacy' subHeaderText='Information collection' avatar={<InfoIcon fontSize='large' />} size='xl' />;
 }
