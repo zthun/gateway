@@ -5,47 +5,45 @@ executors:
     docker:
       - image: node:17.2.0
 
-commands:
-  run_yarn:
-    parameters:
-      title:
-        type: string
-      script:
-        type: string
+workflows:
+  make:
+    jobs:
+      - setup
+      - analyze:
+          requires:
+            - setup
+      - test:
+          requires:
+            - setup
+      - build:
+          requires:
+            - setup
+
+jobs:
+  setup:
+    executor: node
     steps:
       - checkout
       - run:
           name: Install Packages
           command: yarn install
-      - run:
-          name: <<parameters.title>>
-          command: yarn <<parameters.script>>
-
-workflows:
-  make:
-    jobs:
-      - analyze
-      - test
-      - build
-
-jobs:
   analyze:
     executor: node
     steps:
-      - run_yarn:
-          title: Lint Application Files
-          script: lint
+      - run:
+          name: Analyze Source Code
+          command: yarn lint
   test:
     executor: node
     steps:
-      - run_yarn:
-          title: Run Tests
-          script: test
+      - run:
+          name: Test Application
+          command: yarn test
       - store_artifacts:
           path: reports/coverage
   build:
     executor: node
     steps:
-      - run_yarn:
-          title: Build Applications
-          script: build
+      - run:
+          name: Build Application
+          command: yarn build
