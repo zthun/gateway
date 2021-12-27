@@ -1,31 +1,49 @@
 version: 2.1
 
+executors:
+  node:
+    docker:
+      - image: node:17.2.0
+
+commands:
+  run-yarn:
+    parameters:
+      name:
+        type: string
+      command:
+        type: string
+    steps:
+      - checkout
+      - run:
+          name: Install Packages
+          command: yarn install
+      - run:
+          name: <<parameters.name>>
+          command: yarn <<parameters.command>>
+
 workflows:
   check-build:
     jobs:
       - analyze
+      - test
       - build
 
 jobs:
   analyze:
-    docker:
-      - image: node:17.2.0
+    executor: node
     steps:
-      - checkout
-      - run:
-          name: Install Packages
-          command: 'yarn install'
-      - run:
+      - run-yarn:
           name: Lint Application Files
-          command: 'yarn lint'
-  build:
-    docker:
-      - image: node:17.2.0
+          command: lint
+  test:
+    executor: node
     steps:
-      - checkout
-      - run:
-          name: Install Packages
-          command: 'yarn install'
-      - run:
+      - run-yarn:
+          name: Run Tests
+          command: test
+  build:
+    executor: node
+    steps:
+      - run-yarn:
           name: Build Applications
-          command: 'yarn build'
+          command: build
