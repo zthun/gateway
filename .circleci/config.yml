@@ -8,9 +8,9 @@ executors:
 commands:
   run-yarn:
     parameters:
-      name:
+      title:
         type: string
-      command:
+      script:
         type: string
     steps:
       - checkout
@@ -18,8 +18,8 @@ commands:
           name: Install Packages
           command: yarn install
       - run:
-          name: <<parameters.name>>
-          command: yarn <<parameters.command>>
+          name: <<parameters.title>>
+          command: yarn <<parameters.script>>
 
 workflows:
   check-build:
@@ -33,17 +33,17 @@ jobs:
     executor: node
     steps:
       - run-yarn:
-          name: Lint Application Files
-          command: lint
+          title: Lint Application Files
+          script: lint
   test:
     executor: node
     steps:
       - run-yarn:
-          name: Run Tests
-          command: test
+          title: Run Tests
+          script: test
   build:
     executor: node
     steps:
       - run-yarn:
-          name: Build Applications
-          command: build
+          title: Build Applications
+          script: build
