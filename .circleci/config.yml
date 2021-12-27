@@ -6,7 +6,7 @@ executors:
       - image: node:17.2.0
 
 commands:
-  run-yarn:
+  run_yarn:
     parameters:
       title:
         type: string
@@ -22,7 +22,7 @@ commands:
           command: yarn <<parameters.script>>
 
 workflows:
-  check-build:
+  make:
     jobs:
       - analyze
       - test
@@ -32,18 +32,20 @@ jobs:
   analyze:
     executor: node
     steps:
-      - run-yarn:
+      - run_yarn:
           title: Lint Application Files
           script: lint
   test:
     executor: node
     steps:
-      - run-yarn:
+      - run_yarn:
           title: Run Tests
           script: test
+      - store_artifacts:
+          path: reports/coverage
   build:
     executor: node
     steps:
-      - run-yarn:
+      - run_yarn:
           title: Build Applications
           script: build
