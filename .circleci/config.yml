@@ -46,7 +46,9 @@ jobs:
           at: .
       - run:
           name: Build Application
-          command: docker build . --target build
+          command: |
+            export DOCKER_BUILDKIT=1
+            docker build . --target build
 
 workflows:
   make:
