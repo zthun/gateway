@@ -2,11 +2,10 @@ version: 2.1
 
 jobs:
   setup:
-    machine: true
+    machine:
+      image: ubuntu-1604:202004-01
+      docker_layer_caching: true
     steps:
-      - setup_remote_docker:
-          version: 20.10.7
-          docker_layer_caching: true
       - checkout
       - run:
           name: Setup Dependencies
@@ -17,7 +16,9 @@ jobs:
             - .
 
   analyze:
-    machine: true
+    machine:
+      image: "ubuntu-1604:202004-01"
+      docker_layer_caching: true
     steps:
       - attach_workspace:
           at: .
@@ -26,7 +27,9 @@ jobs:
           command: docker build . --target analyze
 
   test:
-    machine: true
+    machine:
+      image: "ubuntu-1604:202004-01"
+      docker_layer_caching: true
     steps:
       - attach_workspace:
           at: .
@@ -35,7 +38,9 @@ jobs:
           command: docker build . --target test
 
   build:
-    machine: true
+    machine:
+      image: "ubuntu-1604:202004-01"
+      docker_layer_caching: true
     steps:
       - attach_workspace:
           at: .
