@@ -1,65 +1,47 @@
 version: 2.1
 
-jobs:
-  setup:
+executors:
+  system:
     machine:
       image: ubuntu-1604:202004-01
-      docker_layer_caching: true
+
+commands:
+  run_docker_target:
+    parameters:
+      target:
+        type: string
     steps:
       - checkout
       - run:
-          name: Setup Dependencies
-          command: docker build . --target setup
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
-  analyze:
-    machine:
-      image: "ubuntu-1604:202004-01"
-      docker_layer_caching: true
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: Analyze Source Code
-          command: docker build . --target analyze
-
-  test:
-    machine:
-      image: "ubuntu-1604:202004-01"
-      docker_layer_caching: true
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: Test Application
-          command: docker build . --target test
-
-  build:
-    machine:
-      image: "ubuntu-1604:202004-01"
-      docker_layer_caching: true
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: Build Application
           command: |
             export DOCKER_BUILDKIT=1
-            docker build . --target build
+            docker build . --target <<parameters.target>>
+
+jobs:
+  analyze:
+    executor: system
+    steps:
+      - checkout
+      - run_docker_target:
+          target: analyze
+
+  test:
+    executor: system
+    steps:
+      - checkout
+      - run_docker_target:
+          target: test
+
+  build:
+    executor: system
+    steps:
+      - checkout
+      - run_docker_target:
+          target: build
 
 workflows:
   make:
     jobs:
-      - setup
-      - analyze:
-          requires:
-            - setup
-      - test:
-          requires:
-            - setup
-      - build:
-          requires:
-            - setup
+      - analyze
+      - test
+      - build
