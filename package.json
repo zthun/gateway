@@ -22,7 +22,7 @@
     "docker:build": "lerna run docker:build",
     "docker": "npm run docker:build && npm run docker:publish",
     "prepare": "husky install",
-    "release": "npm run make && lerna publish --conventional-commits -m \"chore: publish [skip ci]\"",
+    "release": "lerna publish --conventional-commits -m \"chore: publish [skip ci]\"",
     "version": "yarn install && git stage yarn.lock"
   },
   "devDependencies": {
