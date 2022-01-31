@@ -8,7 +8,6 @@
     "url": "https://github.com/zthun/legal",
     "directory": "packages/privacy.web"
   },
-  "private": true,
   "scripts": {
     "docker:publish": "docker push zthun/privacy.web && docker push zthun/privacy.web:$(node -p \"require('./package.json').version\")",
     "docker:build": "docker build . -t zthun/privacy.web:latest -t zthun/privacy.web:$(node -p \"require('./package.json').version\")",

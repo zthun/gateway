@@ -8,7 +8,6 @@
     "url": "https://github.com/zthun/legal",
     "directory": "packages/terms.web"
   },
-  "private": true,
   "scripts": {
     "docker:publish": "docker push zthun/terms.web && docker push zthun/terms.web:$(node -p \"require('./package.json').version\")",
     "docker:build": "docker build . -t zthun/terms.web:latest -t zthun/terms.web:$(node -p \"require('./package.json').version\")",
