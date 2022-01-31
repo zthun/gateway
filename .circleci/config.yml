@@ -3,7 +3,7 @@ version: 2.1
 executors:
   system:
     machine:
-      image: ubuntu-1604:202004-01
+      image: ubuntu-2004:202111-02
 
 commands:
   run_docker_target:
@@ -12,36 +12,77 @@ commands:
         type: string
     steps:
       - checkout
+      - run: mkdir .secrets
+      - run: echo $GIT_CREDENTIALS >> .secrets/.git-credentials
+      - run: echo $NPM_CREDENTIALS >> .secrets/.npmrc
       - run:
           command: |
             export DOCKER_BUILDKIT=1
-            docker build . --target <<parameters.target>>
+            docker build --target <<parameters.target>> --secret id=GIT_CREDENTIALS,src=.secrets/.git-credentials --secret id=NPM_CREDENTIALS,src=.secrets/.npmrc --progress=plain .
+      - run: rm -fr .secrets
 
 jobs:
   analyze:
     executor: system
     steps:
-      - checkout
       - run_docker_target:
           target: analyze
 
   test:
     executor: system
     steps:
-      - checkout
       - run_docker_target:
           target: test
 
   build:
     executor: system
     steps:
-      - checkout
       - run_docker_target:
           target: build
+
+  release:
+    executor: system
+    steps:
+      - run_docker_target:
+          target: release
+
+  dockerize:
+    executor: system
+    steps:
+      - checkout
+      - run:
+          command: |
+            export DOCKER_BUILDKIT=1
+            docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
+            docker build . --target terms.web -t zthun/terms.web:latest -t zthun/terms.web:$(npm show @zthun/terms.web version) --progress=plain
+            docker build . --target privacy.web -t zthun/privacy.web:latest -t zthun/privacy.web:$(npm show @zthun/privacy.web version) --progress=plain
+            docker push zthun/terms.web:latest
+            docker push zthun/terms.web:$(npm show @zthun/terms.web version)
+            docker push zthun/privacy.web:latest
+            docker push zthun/privacy.web:$(npm show @zthun/privacy.web version)
 
 workflows:
   make:
     jobs:
       - analyze
       - test
-      - build
+      - build:
+          filters:
+            branches:
+              ignore:
+                - latest
+      - release:
+          context:
+            - credentials
+          requires:
+            - analyze
+            - test
+          filters:
+            branches:
+              only:
+                - latest
+      - dockerize:
+          context:
+            - credentials
+          requires:
+            - release
