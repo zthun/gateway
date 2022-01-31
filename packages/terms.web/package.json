@@ -1,6 +1,6 @@
 {
   "name": "@zthun/terms.web",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The web client for the terms legal application.",
   "umd": "dist/terms.web.min.js",
   "repository": {
