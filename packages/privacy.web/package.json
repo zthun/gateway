@@ -2,7 +2,7 @@
   "name": "@zthun/privacy.web",
   "version": "1.0.0",
   "description": "The web client for the privacy legal application.",
-  "browser": "dist/privacy.web.min.js",
+  "umd": "dist/privacy.web.min.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/zthun/legal",

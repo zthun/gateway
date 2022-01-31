@@ -2,7 +2,7 @@
   "name": "@zthun/terms.web",
   "version": "1.0.0",
   "description": "The web client for the terms legal application.",
-  "browser": "dist/terms.web.min.js",
+  "umd": "dist/terms.web.min.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/zthun/legal",
